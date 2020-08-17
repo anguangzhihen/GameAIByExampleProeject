@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 15
-  productGUID: 761bb554e3f25d3458705d17b77a2f8e
+  productGUID: bcc622bc6fc0b8a40843e25aa384bf4b
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: New Unity Project
+  productName: GameAIByExampleProject
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -618,9 +618,9 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 23a11bb0-8c8f-4b37-adfb-95750258e53a
+  cloudProjectId: 11c4dbad-78ab-4794-b67b-bb7c01b2f378
   framebufferDepthMemorylessMode: 0
-  projectName: New Unity Project (4)
+  projectName: GameAIByExampleProject
   organizationId: agzh
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
