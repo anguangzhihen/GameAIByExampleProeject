@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Vehicle : MovingEntity
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public GameWorld m_pWorld {
+        get { return GameWorld.Instance; }
     }
 
-    // Update is called once per frame
-    void Update()
+    private SteeringBehaviors m_pSteering;
+
+    void Awake()
     {
-        
+        m_pSteering = new SteeringBehaviors();
+        m_pSteering.m_iFlags = behavior_type.seek;
     }
 }

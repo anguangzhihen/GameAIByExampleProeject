@@ -12,15 +12,4 @@ public class MovingEntity : BaseGameEntity
     double m_dMaxSpeed;
     double m_dMaxForce;
     double m_dMaxTurnRate;
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

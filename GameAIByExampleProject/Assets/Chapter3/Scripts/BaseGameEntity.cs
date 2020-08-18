@@ -13,17 +13,6 @@ public class BaseGameEntity : MonoBehaviour
         set { transform.position = value; }
     }
 
-    Vector2 m_vScale;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Vector2 m_vScale;
+    public double m_dBoundingRadius;
 }
