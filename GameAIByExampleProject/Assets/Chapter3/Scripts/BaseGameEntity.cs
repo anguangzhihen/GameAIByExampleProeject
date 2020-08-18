@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseGameEntity : MonoBehaviour
 {
-    private Vector2 m_vPos
+    public Vector2 m_vPos
     {
         get
         {

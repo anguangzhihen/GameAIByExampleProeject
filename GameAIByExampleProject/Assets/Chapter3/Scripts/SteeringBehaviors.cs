@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public enum summing_method { weighted_average, prioritized, dithered }
@@ -30,29 +31,67 @@ public class SteeringBehaviors
     public behavior_type m_iFlags;
     public summing_method m_SummingMethod = summing_method.prioritized;
 
-    public Vector2 Calculate()
+    public Vehicle m_pVehicle;
+
+    private float m_dWeightSeek = 1;
+
+    public Vector2 m_vSteeringForce;
+
+    public Vector2 Calculate(Vector2 target)
     {
         switch (m_SummingMethod)
         {
             case summing_method.prioritized:
-                return CalculatePrioritized();
+                return CalculatePrioritized(target);
         }
         return Vector2.zero;
     }
 
-    Vector2 CalculatePrioritized()
+    Vector2 CalculatePrioritized(Vector2 target)
     {
+        Vector2 force;
+
         if (On(behavior_type.seek))
         {
-            
+            force = Seek(target) * m_dWeightSeek;
+            if (!AccumulateForce(ref m_vSteeringForce, force))
+                return m_vSteeringForce;
         }
 
-        return Vector2.zero;
+        return m_vSteeringForce;
+    }
+
+    Vector2 Seek(Vector2 target)
+    {
+        Vector2 DesiredVelocity = (target - m_pVehicle.m_vPos).normalized * m_pVehicle.m_dMaxSpeed;
+        return DesiredVelocity - m_pVehicle.m_vVelocity;
     }
 
     bool On(behavior_type bt)
     {
         return (m_iFlags & bt) == bt;
+    }
+
+    bool AccumulateForce(ref Vector2 RunningTot, Vector2 ForceToAdd)
+    {
+        float MagnitudeSoFar = RunningTot.magnitude;
+        float MagnitudeRemaining = m_pVehicle.m_dMaxForce - MagnitudeSoFar;
+
+        // 不需要增加力
+        if (MagnitudeRemaining <= 0)
+            return false;
+
+        float MagnitudeToAdd = ForceToAdd.magnitude;
+
+        if (MagnitudeToAdd < MagnitudeRemaining)
+        {
+            RunningTot += ForceToAdd;
+        }
+        else
+        {
+            RunningTot += ForceToAdd.normalized * MagnitudeRemaining;
+        }
+        return true;
     }
 
 

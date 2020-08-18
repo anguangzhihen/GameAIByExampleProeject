@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class MovingEntity : BaseGameEntity
 {
-    private Vector2 m_vVelocity;
-    private Vector2 m_vHeading;
-    private Vector2 m_vSide;
+    public Vector2 m_vVelocity;
+    public Vector2 m_vHeading;
+    public Vector2 m_vSide; // 垂直于m_vHeading的向量
 
-    double m_dMass;
-    double m_dMaxSpeed;
-    double m_dMaxForce;
+    public float m_dMass;
+    public float m_dMaxSpeed;
+    public float m_dMaxForce;
     double m_dMaxTurnRate;
 }
