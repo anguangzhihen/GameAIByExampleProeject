@@ -34,6 +34,7 @@ public class SteeringBehaviors
     public Vehicle m_pVehicle;
 
     private float m_dWeightSeek = 1;
+    private float m_dWeightFlee = 1;
 
     public Vector2 m_vSteeringForce;
 
@@ -58,6 +59,13 @@ public class SteeringBehaviors
             if (!AccumulateForce(ref m_vSteeringForce, force))
                 return m_vSteeringForce;
         }
+        if (On(behavior_type.flee))
+        {
+            force = Flee(target) * m_dWeightFlee;
+            return force;
+            if (!AccumulateForce(ref m_vSteeringForce, force))
+                return m_vSteeringForce;
+        }
 
         return m_vSteeringForce;
     }
@@ -65,6 +73,12 @@ public class SteeringBehaviors
     Vector2 Seek(Vector2 target)
     {
         Vector2 DesiredVelocity = (target - m_pVehicle.m_vPos).normalized * m_pVehicle.m_dMaxSpeed;
+        return DesiredVelocity - m_pVehicle.m_vVelocity;
+    }
+
+    Vector2 Flee(Vector2 target)
+    {
+        Vector2 DesiredVelocity = (m_pVehicle.m_vPos - target).normalized * m_pVehicle.m_dMaxSpeed;
         return DesiredVelocity - m_pVehicle.m_vVelocity;
     }
 

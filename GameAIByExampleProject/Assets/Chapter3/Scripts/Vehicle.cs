@@ -32,6 +32,7 @@ public class Vehicle : MovingEntity
         var worldPos = Camera.main.ScreenToWorldPoint(mousePos);
 
         Vector2 OldPos = m_vPos;
+        // Calculate计算出来的实际上是一个需求的速度，我的理解是它默认除以1s并乘以Mass，获得了力
         Vector2 SteeringForce = m_pSteering.Calculate(new Vector2(worldPos.x, worldPos.y));
 
         Vector2 acceleration = SteeringForce / m_dMass;
