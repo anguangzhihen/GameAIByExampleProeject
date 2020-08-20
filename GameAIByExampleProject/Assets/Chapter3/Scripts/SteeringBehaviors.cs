@@ -54,6 +54,7 @@ public class SteeringBehaviors
         if (On(behavior_type.seek))
         {
             force = Seek(target) * m_dWeightSeek;
+            return force;
             if (!AccumulateForce(ref m_vSteeringForce, force))
                 return m_vSteeringForce;
         }

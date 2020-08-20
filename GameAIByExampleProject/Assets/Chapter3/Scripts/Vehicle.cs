@@ -19,8 +19,8 @@ public class Vehicle : MovingEntity
         m_pSteering.m_iFlags = behavior_type.seek;
         m_pSteering.m_pVehicle = this;
 
-        this.m_dMaxSpeed = 150;
-        this.m_dMaxForce = 200;
+        this.m_dMaxSpeed = 1.5f;
+        this.m_dMaxForce = 2;
         this.m_dMass = 1;
     }
 
@@ -38,6 +38,9 @@ public class Vehicle : MovingEntity
         m_vVelocity += acceleration * time_elapsed;
         m_vVelocity = Vector2.ClampMagnitude(m_vVelocity, m_dMaxSpeed);
 
+        // 更新位置
+        m_vPos += m_vVelocity * time_elapsed;
+
         if (m_vVelocity.sqrMagnitude > 0.00001)
         {
             m_vHeading = m_vVelocity.normalized;
@@ -51,6 +54,15 @@ public class Vehicle : MovingEntity
             
         }
 
+
+        Render();
+    }
+
+    void Render()
+    {
+        // 更新朝向
+        var to = new Vector3(m_vHeading.x, m_vHeading.y, 0);
+        transform.localRotation = Quaternion.FromToRotation(Vector3.up, to);
     }
 
     public bool isSmoothingOn()
