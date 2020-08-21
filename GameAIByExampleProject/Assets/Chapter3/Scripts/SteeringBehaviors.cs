@@ -26,6 +26,13 @@ public enum behavior_type
     offset_pursuit = 0x10000,
 };
 
+public enum Deceleration
+{
+    slow = 3,
+    normal = 2,
+    fast = 1,
+}
+
 public class SteeringBehaviors
 {
     public behavior_type m_iFlags;
@@ -35,8 +42,10 @@ public class SteeringBehaviors
 
     private float m_dWeightSeek = 1;
     private float m_dWeightFlee = 1;
+    private float m_dWeightArrive = 1;
 
     public Vector2 m_vSteeringForce;
+    public Deceleration m_Deceleration = Deceleration.normal;
 
     public Vector2 Calculate(Vector2 target)
     {
@@ -66,10 +75,18 @@ public class SteeringBehaviors
             if (!AccumulateForce(ref m_vSteeringForce, force))
                 return m_vSteeringForce;
         }
+        if (On(behavior_type.arrive))
+        {
+            force = Arrive(target, m_Deceleration) * m_dWeightArrive;
+            return force;
+            if (!AccumulateForce(ref m_vSteeringForce, force))
+                return m_vSteeringForce;
+        }
 
         return m_vSteeringForce;
     }
 
+    // 力计算的核心算法
     Vector2 Seek(Vector2 target)
     {
         Vector2 DesiredVelocity = (target - m_pVehicle.m_vPos).normalized * m_pVehicle.m_dMaxSpeed;
@@ -84,6 +101,23 @@ public class SteeringBehaviors
 
         Vector2 DesiredVelocity = (m_pVehicle.m_vPos - target).normalized * m_pVehicle.m_dMaxSpeed;
         return DesiredVelocity - m_pVehicle.m_vVelocity;
+    }
+
+    Vector2 Arrive(Vector2 target, Deceleration deceleration)
+    {
+        Vector2 toTarget = target - m_pVehicle.m_vPos;
+        float dist = toTarget.magnitude;
+        if (dist > 0)
+        {
+            float DecelerationTweaker = 0.3f;
+            float speed = dist / ((float) deceleration * DecelerationTweaker);
+            speed = Mathf.Min(speed, m_pVehicle.m_dMaxSpeed);
+
+            // 除以dist标准化向量
+            Vector2 DesiredVelocity = toTarget * speed / dist;
+            return DesiredVelocity - m_pVehicle.m_vVelocity;
+        }
+        return Vector2.zero;
     }
 
     bool On(behavior_type bt)

@@ -44,7 +44,7 @@ public class Vehicle : MovingEntity
         // 更新位置
         m_vPos += m_vVelocity * time_elapsed;
 
-        if (m_vVelocity.sqrMagnitude > 0.00001)
+        if (m_vVelocity.sqrMagnitude > 0.0001 * 0.0001)
         {
             m_vHeading = m_vVelocity.normalized;
             m_vSide = Vector2.Perpendicular(m_vHeading);
