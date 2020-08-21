@@ -78,6 +78,10 @@ public class SteeringBehaviors
 
     Vector2 Flee(Vector2 target)
     {
+        float PanicDistanceSq = 2 * 2;
+        if ((m_pVehicle.m_vPos - target).sqrMagnitude > PanicDistanceSq)
+            return Vector2.zero;
+
         Vector2 DesiredVelocity = (m_pVehicle.m_vPos - target).normalized * m_pVehicle.m_dMaxSpeed;
         return DesiredVelocity - m_pVehicle.m_vVelocity;
     }

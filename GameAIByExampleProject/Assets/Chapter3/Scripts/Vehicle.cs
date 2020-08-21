@@ -13,10 +13,12 @@ public class Vehicle : MovingEntity
 
     private Vector2 m_vSmoothedHeading;
 
+    public behavior_type m_iFlags;
+
     void Awake()
     {
         m_pSteering = new SteeringBehaviors();
-        m_pSteering.m_iFlags = behavior_type.seek;
+        m_pSteering.m_iFlags = m_iFlags;
         m_pSteering.m_pVehicle = this;
 
         this.m_dMaxSpeed = 1.5f;

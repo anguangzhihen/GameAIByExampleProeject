@@ -337,4 +337,4 @@ MonoBehaviour:
   m_dMass: 0
   m_dMaxSpeed: 0
   m_dMaxForce: 0
-  m_iFlags: 2
+  m_iFlags: 4
