@@ -13,7 +13,11 @@ public class Vehicle : MovingEntity
 
     private Vector2 m_vSmoothedHeading;
 
+
     public behavior_type m_iFlags;
+
+    public bool showDebug = false;
+
 
     void Awake()
     {
@@ -71,5 +75,11 @@ public class Vehicle : MovingEntity
     public bool isSmoothingOn()
     {
         return m_bSmoothingOn;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 1);
     }
 }
